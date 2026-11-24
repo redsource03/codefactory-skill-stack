@@ -1,0 +1,152 @@
+# Issue Orchestrator Configuration
+#
+# Each label is a first-class entry. When the orchestrator finds an issue
+# with a label in this map, it runs the configured skill and then transitions
+# to one of the defined next labels based on the outcome.
+#
+# Single pipeline:
+#   ready-for-agent → implement → ready-for-code-simplify → code-simplify
+#     → ready-for-hunt-bugs → hunt-bugs → ready-for-hardening → resiliency
+#     → ready-for-spec-review → code-review → ready-for-human
+#
+# Loops:
+#   - ready-for-hunt-bugs: max 3 iterations (hunt-bugs is non-deterministic)
+#   - ready-for-spec-review: max 3 iterations (code-review is non-deterministic)
+#   - failed-hunt-bugs: restart from /implement (max 3 failures)
+#   - failed-spec-review: restart from /implement (max 3 failures)
+
+orchestrator:
+  # How to select an issue when multiple match.
+  # Options: oldest (by issue number), newest, random
+  issue_selection: random
+
+  # Default loop limit for any stage that doesn't override it.
+  max_loop_iterations: 3
+
+  # Report when no issues are found.
+  empty_report: "No issues to pick up"
+
+  # Branch management: every skill invocation receives these.
+  branch:
+    # The base branch all work is compared against. Never commit directly here.
+    base: "main"
+    # Pattern for the integration branch. <n> is replaced with the issue number.
+    integration: "feature/issue-<n>"
+    # Never allow committing to these branch names.
+    forbidden: ["main", "master", "trunk", "develop"]
+
+  # Context passed to every skill invocation: issue number, branch name, etc.
+  context:
+    # The issue number (e.g., 42). Every skill uses this for PR creation,
+    # commenting, label management, etc.
+    issue: null
+    # The generated integration branch name (e.g., "feature/issue-42").
+    branch: null
+    # The base branch for comparison (e.g., "main").
+    base_branch: null
+
+# Each key is a label. The orchestrator queries GitHub for issues with these labels.
+# When found, it runs the configured `skill` and then transitions to one of the
+# `transitions` based on the outcome.
+labels:
+  # Entry point: new issues waiting for work
+  ready-for-agent:
+    skill: implement
+    transitions:
+      - label: ready-for-code-simplify
+        condition: success
+
+  # After implement: ready for code simplification
+  ready-for-code-simplify:
+    skill: code-simplify
+    transitions:
+      - label: ready-for-hunt-bugs
+        condition: success
+
+  # After code-simplify: ready for bug hunt
+  # This is the ONLY stage that can loop back to failed-hunt-bugs.
+  # hunt-bugs is non-deterministic (searching for bugs).
+  ready-for-hunt-bugs:
+    skill: hunt-bugs
+    transitions:
+      - label: ready-for-hardening
+        condition: success
+      - label: failed-hunt-bugs
+        condition: failure
+    loop:
+      max_iterations: 3
+      tracked: true
+
+  # After hunt-bugs: ready for hardening/resiliency
+  ready-for-hardening:
+    skill: resiliency
+    transitions:
+      - label: ready-for-spec-review
+        condition: success
+
+  # After resiliency: ready for code review
+  # This is the ONLY stage that can loop back to failed-spec-review.
+  # code-review is non-deterministic (review quality varies).
+  ready-for-spec-review:
+    skill: code-review
+    transitions:
+      - label: ready-for-human
+        condition: success
+      - label: failed-spec-review
+        condition: failure
+    loop:
+      max_iterations: 3
+      tracked: true
+
+  # Final state: ready for human to merge
+  ready-for-human:
+    skill: done
+    transitions: []
+
+  # Fallback: hunt-bugs failed, restart from implement (max 3 times)
+  failed-hunt-bugs:
+    skill: implement
+    transitions:
+      - label: ready-for-code-simplify
+        condition: success
+      - label: for-human-review
+        condition: failure
+        when: loop_max_reached
+    loop:
+      max_iterations: 3
+      tracked: true
+      on_max_reached: for-human-review
+
+  # Fallback: spec-review failed, restart from implement (max 3 times)
+  failed-spec-review:
+    skill: implement
+    transitions:
+      - label: ready-for-code-simplify
+        condition: success
+      - label: for-human-review
+        condition: failure
+        when: loop_max_reached
+    loop:
+      max_iterations: 3
+      tracked: true
+      on_max_reached: for-human-review
+
+# Transitions that apply to ALL labels (global fallback behavior).
+# These are checked when a label doesn't define its own transitions.
+global_transitions:
+  in-progress:
+    transitions: []
+    # No skill runs on in-progress; it's a guard rail only.
+  for-human-review:
+    skill: done
+    transitions: []
+    # No further transitions; issue is escalated.
+
+# Agent configuration
+agents:
+  openai:
+    interface:
+      display_name: "Issue Orchestrator"
+      short_description: "Orchestrate GitHub issues through pipeline stages"
+    policy:
+      allow_implicit_invocation: false

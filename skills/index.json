@@ -1,0 +1,74 @@
+{
+  "skills": [
+    {
+      "name": "code-review",
+      "version": "1.0.0",
+      "files": ["code-review/SKILL.md"]
+    },
+    {
+      "name": "code-simplify",
+      "version": "1.0.0",
+      "files": ["code-simplify/SKILL.md"]
+    },
+    {
+      "name": "codebase-design",
+      "version": "1.0.0",
+      "files": ["codebase-design/SKILL.md", "codebase-design/DEEPENING.md", "codebase-design/DESIGN-IT-TWICE.md"]
+    },
+    {
+      "name": "domain-modeling",
+      "version": "1.0.0",
+      "files": ["domain-modeling/SKILL.md", "domain-modeling/ADR-FORMAT.md", "domain-modeling/GLOSSARY-FORMAT.md"]
+    },
+    {
+      "name": "grill-with-docs",
+      "version": "1.0.0",
+      "files": ["grill-with-docs/SKILL.md"]
+    },
+    {
+      "name": "grilling",
+      "version": "1.0.0",
+      "files": ["grilling/SKILL.md"]
+    },
+    {
+      "name": "hunt-bugs",
+      "version": "1.0.0",
+      "files": ["hunt-bugs/SKILL.md", "hunt-bugs/agents/hunt-bugs.md"]
+    },
+    {
+      "name": "implement",
+      "version": "1.0.0",
+      "files": ["implement/SKILL.md"]
+    },
+    {
+      "name": "issue-orchestrator",
+      "version": "1.0.0",
+      "files": ["issue-orchestrator/SKILL.md", "issue-orchestrator/agents/openai.yaml", "issue-orchestrator/config.yaml"]
+    },
+    {
+      "name": "pr",
+      "version": "1.0.0",
+      "files": ["pr/SKILL.md"]
+    },
+    {
+      "name": "resiliency",
+      "version": "1.0.0",
+      "files": ["resiliency/SKILL.md", "resiliency/agents/resiliency.md"]
+    },
+    {
+      "name": "set-me-up",
+      "version": "1.0.0",
+      "files": ["set-me-up/SKILL.md", "set-me-up/domain.md", "set-me-up/issue-tracker-github.md", "set-me-up/issue-tracker-gitlab.md", "set-me-up/issue-tracker-local.md", "set-me-up/triage-labels.md"]
+    },
+    {
+      "name": "tdd",
+      "version": "1.0.0",
+      "files": ["tdd/SKILL.md", "tdd/mocking.md", "tdd/tests.md"]
+    },
+    {
+      "name": "to-spec",
+      "version": "1.0.0",
+      "files": ["to-spec/SKILL.md"]
+    }
+  ]
+}

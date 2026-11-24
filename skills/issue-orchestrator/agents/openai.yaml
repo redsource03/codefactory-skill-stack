@@ -1,0 +1,5 @@
+interface:
+  display_name: "Issue Orchestrator"
+  short_description: "Orchestrate GitHub issues through pipeline stages"
+policy:
+  allow_implicit_invocation: false
