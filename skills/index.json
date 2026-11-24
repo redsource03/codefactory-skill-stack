@@ -3,72 +3,79 @@
     {
       "name": "code-review",
       "version": "1.0.0",
-      "files": ["code-review/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "code-simplify",
       "version": "1.0.0",
-      "files": ["code-simplify/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "codebase-design",
       "version": "1.0.0",
-      "files": ["codebase-design/SKILL.md", "codebase-design/DEEPENING.md", "codebase-design/DESIGN-IT-TWICE.md"]
+      "files": ["SKILL.md", "DEEPENING.md", "DESIGN-IT-TWICE.md"]
     },
     {
       "name": "domain-modeling",
       "version": "1.0.0",
-      "files": ["domain-modeling/SKILL.md", "domain-modeling/ADR-FORMAT.md", "domain-modeling/GLOSSARY-FORMAT.md"]
+      "files": ["SKILL.md", "ADR-FORMAT.md", "GLOSSARY-FORMAT.md"]
     },
     {
       "name": "grill-with-docs",
       "version": "1.0.0",
-      "files": ["grill-with-docs/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "grilling",
       "version": "1.0.0",
-      "files": ["grilling/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "hunt-bugs",
       "version": "1.0.0",
-      "files": ["hunt-bugs/SKILL.md", "hunt-bugs/agents/hunt-bugs.md"]
+      "files": ["SKILL.md", "agents/hunt-bugs.md"]
     },
     {
       "name": "implement",
       "version": "1.0.0",
-      "files": ["implement/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "issue-orchestrator",
       "version": "1.0.0",
-      "files": ["issue-orchestrator/SKILL.md", "issue-orchestrator/agents/openai.yaml", "issue-orchestrator/config.yaml"]
+      "files": ["SKILL.md", "agents/openai.yaml", "config.yaml"]
     },
     {
       "name": "pr",
       "version": "1.0.0",
-      "files": ["pr/SKILL.md"]
+      "files": ["SKILL.md"]
     },
     {
       "name": "resiliency",
       "version": "1.0.0",
-      "files": ["resiliency/SKILL.md", "resiliency/agents/resiliency.md"]
+      "files": ["SKILL.md", "agents/resiliency.md"]
     },
     {
       "name": "set-me-up",
       "version": "1.0.0",
-      "files": ["set-me-up/SKILL.md", "set-me-up/domain.md", "set-me-up/issue-tracker-github.md", "set-me-up/issue-tracker-gitlab.md", "set-me-up/issue-tracker-local.md", "set-me-up/triage-labels.md"]
+      "files": [
+        "SKILL.md",
+        "domain.md",
+        "issue-tracker-github.md",
+        "issue-tracker-gitlab.md",
+        "issue-tracker-local.md",
+        "triage-labels.md"
+      ]
     },
     {
       "name": "tdd",
       "version": "1.0.0",
-      "files": ["tdd/SKILL.md", "tdd/mocking.md", "tdd/tests.md"]
+      "files": ["SKILL.md", "mocking.md", "tests.md"]
     },
     {
       "name": "to-spec",
       "version": "1.0.0",
-      "files": ["to-spec/SKILL.md"]
+      "files": ["SKILL.md"]
     }
   ]
 }
